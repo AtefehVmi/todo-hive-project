@@ -1,31 +1,36 @@
 import { useForm } from "react-hook-form";
-import { signup } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
+import { useSignup } from "./useSignup";
 
 function SignupForm() {
+  const { signup, isLoading } = useSignup();
   const { reset, handleSubmit, register } = useForm();
+  const navigate = useNavigate();
 
-  function onSubmit({ firstname, lastname, username, email, password }) {
-    const newUser = { firstname, lastname, username, email, password };
+  function onSubmit({ firstName, lastName, username, email, password }) {
+    const newUser = { firstName, lastName, username, email, password };
     signup(newUser);
-    console.log(newUser);
+    navigate("/login");
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label htmlFor="firstname">First name</label>
+        <label htmlFor="firstName">First name</label>
         <input
           type="text"
-          id="firstname"
-          {...register("firstname", { required: "This field is required" })}
+          id="firstName"
+          disabled={isLoading}
+          {...register("firstName", { required: "This field is required" })}
         />
       </div>
 
       <div>
-        <label htmlFor="lastname">Last name</label>
+        <label htmlFor="lastName">Last name</label>
         <input
           type="text"
-          id="lastname"
-          {...register("lastname", { required: "This field is required" })}
+          id="lastName"
+          disabled={isLoading}
+          {...register("lastName", { required: "This field is required" })}
         />
       </div>
 
@@ -34,6 +39,7 @@ function SignupForm() {
         <input
           type="text"
           id="username"
+          disabled={isLoading}
           {...register("username", { required: "This field is required" })}
         />
       </div>
@@ -43,6 +49,7 @@ function SignupForm() {
         <input
           type="email"
           id="email"
+          disabled={isLoading}
           {...register("email", {
             required: "This field is required",
             pattern: {
@@ -58,6 +65,7 @@ function SignupForm() {
         <input
           type="password"
           id="password"
+          disabled={isLoading}
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -69,8 +77,10 @@ function SignupForm() {
       </div>
 
       <div>
-        <button onClick={reset}>submit</button>
-        <button onClick={reset}>reset</button>
+        <button disabled={isLoading}>submit</button>
+        <button onClick={reset} disabled={isLoading}>
+          reset
+        </button>
       </div>
     </form>
   );
