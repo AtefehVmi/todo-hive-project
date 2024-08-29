@@ -2,13 +2,16 @@ import { useForm } from "react-hook-form";
 
 import { useLogin } from "./useLogin";
 import Button from "../../ui/Button";
+import { Link } from "react-router-dom";
+import Label from "../../ui/Label";
 // import { useEffect } from "react";
 
 // import Cookies from "js-cookie";
 
 function LoginForm() {
   const { login, isLoading } = useLogin();
-  const { reset, handleSubmit, register } = useForm();
+  const { reset, handleSubmit, register, formState } = useForm();
+  const { errors } = formState;
 
   // useEffect(() => {
   //   // Get a cookie
@@ -29,16 +32,11 @@ function LoginForm() {
   }
   return (
     <form
-      className="w-80 bg-purple-50 py-10 px-10 rounded-xl"
+      className="w-80 bg-purple-50 py-10 px-10 rounded-xl shadow-lg"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex mb-4 flex-col">
-        <label
-          htmlFor="username"
-          className="text-stone-500 text-sm font-semibold "
-        >
-          Username
-        </label>
+        <Label id="username">Username</Label>
         <input
           className="input"
           type="text"
@@ -46,15 +44,11 @@ function LoginForm() {
           disabled={isLoading}
           {...register("username", { required: "This field is required" })}
         />
+        <span className="inputError">{errors?.username?.message}</span>
       </div>
 
       <div className="flex mb-4 flex-col">
-        <label
-          htmlFor="password"
-          className="text-stone-500 text-sm font-semibold"
-        >
-          Password
-        </label>
+        <Label id="password">Password</Label>
         <input
           className="input"
           type="password"
@@ -68,9 +62,19 @@ function LoginForm() {
             },
           })}
         />
+        <span className="inputError">{errors?.password?.message}</span>
       </div>
 
       <Button>Login</Button>
+
+      <div>
+        <h6 className="text-xs text-stone-500 font-light tracking-wide">
+          Don&apos;t have an account?
+          <span className="underline ml-1 text-stone-700 font-medium">
+            <Link to="/signup">Signup</Link>
+          </span>
+        </h6>
+      </div>
     </form>
   );
 }

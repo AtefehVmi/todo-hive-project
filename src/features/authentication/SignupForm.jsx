@@ -1,52 +1,75 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSignup } from "./useSignup";
+import Button from "../../ui/Button";
+import Label from "../../ui/Label";
 
 function SignupForm() {
   const { signup, isLoading } = useSignup();
-  const { reset, handleSubmit, register } = useForm();
-  const navigate = useNavigate();
+  const { reset, handleSubmit, register, formState } = useForm();
+  const { errors } = formState;
 
   function onSubmit({ firstName, lastName, username, email, password }) {
     const newUser = { firstName, lastName, username, email, password };
-    signup(newUser);
-    navigate("/login");
+    signup(newUser, {
+      onSettled: () => {
+        reset();
+      },
+    });
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="firstName">First name</label>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-80 bg-purple-50 py-10 px-10 rounded-xl shadow-lg"
+    >
+      <div className="flex mb-4 flex-col">
+        <Label id="firstName">First name</Label>
         <input
+          className="input"
           type="text"
           id="firstName"
           disabled={isLoading}
-          {...register("firstName", { required: "This field is required" })}
+          {...register("firstName", {
+            required: "This field is required",
+            minLength: {
+              value: 4,
+              message: "Name must have more than 3 characters",
+            },
+          })}
         />
+        <span className="inputError">{errors?.firstName?.message}</span>
       </div>
 
-      <div>
-        <label htmlFor="lastName">Last name</label>
+      <div className="flex mb-4 flex-col">
+        <Label id="lastName">Last name</Label>
         <input
+          className="input"
           type="text"
           id="lastName"
           disabled={isLoading}
           {...register("lastName", { required: "This field is required" })}
         />
+        <span className="inputError">{errors?.lastName?.message}</span>
       </div>
 
-      <div>
-        <label htmlFor="username">User name</label>
+      <div className="flex mb-4 flex-col">
+        <Label id="username">Username</Label>
         <input
+          className="input"
           type="text"
           id="username"
           disabled={isLoading}
-          {...register("username", { required: "This field is required" })}
+          {...register("username", {
+            required: "This field is required",
+          })}
         />
+        <span className="inputError">{errors?.username?.message}</span>
       </div>
 
-      <div>
-        <label htmlFor="email">Email</label>
+      <div className="flex mb-4 flex-col">
+        <Label id="email">Email</Label>
         <input
+          className="input"
           type="email"
           id="email"
           disabled={isLoading}
@@ -58,11 +81,13 @@ function SignupForm() {
             },
           })}
         />
+        <span className="inputError">{errors?.email?.message}</span>
       </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
+      <div className="flex mb-4 flex-col">
+        <Label id="password">Password</Label>
         <input
+          className="input"
           type="password"
           id="password"
           disabled={isLoading}
@@ -72,15 +97,30 @@ function SignupForm() {
               value: 8,
               message: "Password needs a minimum of 8 characters",
             },
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+              message: "Password is not strong enough",
+            },
           })}
         />
+        <span className="inputError">{errors?.password?.message}</span>
       </div>
 
       <div>
-        <button disabled={isLoading}>submit</button>
+        {/* <button disabled={isLoading}>submit</button>
         <button onClick={reset} disabled={isLoading}>
           reset
-        </button>
+        </button> */}
+        <Button>Sign up</Button>
+      </div>
+
+      <div>
+        <h6 className="text-xs text-stone-500 font-light tracking-wide">
+          Already have an account?
+          <span className="underline ml-1 text-stone-700 font-medium">
+            <Link to="/login">Login</Link>
+          </span>
+        </h6>
       </div>
     </form>
   );
