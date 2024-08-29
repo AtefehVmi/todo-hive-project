@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply border border-stone-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-purple-400 text-sm transition-all duration-300;
+  }
+}

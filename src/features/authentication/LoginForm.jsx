@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import { useLogin } from "./useLogin";
+import Button from "../../ui/Button";
 // import { useEffect } from "react";
 
 // import Cookies from "js-cookie";
@@ -27,10 +28,19 @@ function LoginForm() {
     );
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="username">User name</label>
+    <form
+      className="w-80 bg-purple-50 py-10 px-10 rounded-xl"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex mb-4 flex-col">
+        <label
+          htmlFor="username"
+          className="text-stone-500 text-sm font-semibold "
+        >
+          Username
+        </label>
         <input
+          className="input"
           type="text"
           id="username"
           disabled={isLoading}
@@ -38,9 +48,15 @@ function LoginForm() {
         />
       </div>
 
-      <div>
-        <label htmlFor="password">Password</label>
+      <div className="flex mb-4 flex-col">
+        <label
+          htmlFor="password"
+          className="text-stone-500 text-sm font-semibold"
+        >
+          Password
+        </label>
         <input
+          className="input"
           type="password"
           id="password"
           disabled={isLoading}
@@ -54,10 +70,7 @@ function LoginForm() {
         />
       </div>
 
-      <button disabled={isLoading}>submit</button>
-      <button onClick={reset} disabled={isLoading}>
-        reset
-      </button>
+      <Button>Login</Button>
     </form>
   );
 }
