@@ -7,7 +7,7 @@ export default {
     },
     extend: {
       height: {
-        screen: "100vh",
+        screen: "100dvh",
       },
     },
   },

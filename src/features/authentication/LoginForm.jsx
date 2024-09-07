@@ -2,31 +2,38 @@ import { useForm } from "react-hook-form";
 
 import { useLogin } from "./useLogin";
 import Button from "../../ui/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Label from "../../ui/Label";
-// import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
+import toast from "react-hot-toast";
 // import Cookies from "js-cookie";
 
 function LoginForm() {
   const { login, isLoading } = useLogin();
   const { reset, handleSubmit, register, formState } = useForm();
   const { errors } = formState;
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  // const _at = Cookies.get("_at");
 
   // useEffect(() => {
+  //   if (_at) navigate("/dashboard");
   //   // Get a cookie
-  //   const myCookie = Cookies.get('myCookieName');
-  //   console.log('Cookie Value:', myCookie);
-
-  //   // Remove a cookie
-  //   Cookies.remove('myCookieName');
-  // }, []);
+  //   // // Remove a cookie
+  //   // Cookies.remove('myCookieName');
+  // }, [navigate, _at]);
 
   function onSubmit({ username, password }) {
     login(
       { username, password },
       {
         onSettled: () => reset(),
+        onSuccess: (user) => {
+          queryClient.setQueryData(["user"], user.user);
+          toast.success("Welcome!");
+          navigate("/dashboard");
+        },
       }
     );
   }
@@ -38,7 +45,9 @@ function LoginForm() {
       <div className="flex mb-4 flex-col">
         <Label id="username">Username</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.username ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="text"
           id="username"
           disabled={isLoading}
@@ -50,7 +59,9 @@ function LoginForm() {
       <div className="flex mb-4 flex-col">
         <Label id="password">Password</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.password ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="password"
           id="password"
           disabled={isLoading}

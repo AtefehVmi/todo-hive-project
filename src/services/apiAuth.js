@@ -25,6 +25,7 @@ export async function login(user) {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
+        accept: "application/json",
         "Content-Type": "application/json",
       },
     });
@@ -33,6 +34,7 @@ export async function login(user) {
 
     const data = await res.json();
     // console.log(data);
+    // const { accessToken } = data;
     return data;
   } catch {
     throw Error("failed creating user");
@@ -44,14 +46,14 @@ export async function getUser() {
     const res = await fetch(`${USER_URL}/info`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        accept: "application/json",
       },
     });
 
     if (!res.ok) throw Error();
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch {
     throw Error("failed getting user info!");

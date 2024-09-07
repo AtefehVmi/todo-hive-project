@@ -25,7 +25,9 @@ function SignupForm() {
       <div className="flex mb-4 flex-col">
         <Label id="firstName">First name</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.firstName ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="text"
           id="firstName"
           disabled={isLoading}
@@ -43,7 +45,9 @@ function SignupForm() {
       <div className="flex mb-4 flex-col">
         <Label id="lastName">Last name</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.lastName ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="text"
           id="lastName"
           disabled={isLoading}
@@ -55,7 +59,9 @@ function SignupForm() {
       <div className="flex mb-4 flex-col">
         <Label id="username">Username</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.username ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="text"
           id="username"
           disabled={isLoading}
@@ -69,7 +75,9 @@ function SignupForm() {
       <div className="flex mb-4 flex-col">
         <Label id="email">Email</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.email ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="email"
           id="email"
           disabled={isLoading}
@@ -87,7 +95,9 @@ function SignupForm() {
       <div className="flex mb-4 flex-col">
         <Label id="password">Password</Label>
         <input
-          className="input"
+          className={`input ${
+            errors?.password ? "focus:ring-red-500" : "focus:ring-purple-400"
+          }`}
           type="password"
           id="password"
           disabled={isLoading}
