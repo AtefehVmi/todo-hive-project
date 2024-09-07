@@ -15,7 +15,7 @@ function AppLayout() {
 
       <div className="flex flex-1 relative">
         {isSideBarOpen && (
-          <div className="absolute z-10 h-full top-1 left-4">
+          <div className="absolute z-10 h-full top-1 left-3">
             <SideBar />
           </div>
         )}

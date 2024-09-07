@@ -17,7 +17,7 @@ function Header({ toggleSideBar, isSideBarOpen }) {
       />
 
       <button
-        className=" text-stone-600 text-2xl border-2 border-purple-500 rounded-md h-8 w-8 flex items-center justify-center"
+        className=" text-purple-500 text-2xl border-2 border-purple-500 rounded-md h-8 w-8 flex items-center justify-center"
         onClick={toggleSideBar}
       >
         {isSideBarOpen ? <IoClose /> : <HiMenu />}
