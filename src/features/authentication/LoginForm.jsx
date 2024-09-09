@@ -76,7 +76,7 @@ function LoginForm() {
         <span className="inputError">{errors?.password?.message}</span>
       </div>
 
-      <Button>Login</Button>
+      <Button type="primary">Login</Button>
 
       <div>
         <h6 className="text-xs text-stone-500 font-light tracking-wide">

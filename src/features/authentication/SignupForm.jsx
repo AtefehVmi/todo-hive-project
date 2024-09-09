@@ -121,7 +121,7 @@ function SignupForm() {
         <button onClick={reset} disabled={isLoading}>
           reset
         </button> */}
-        <Button>Sign up</Button>
+        <Button type="primary">Sign up</Button>
       </div>
 
       <div>

@@ -4,7 +4,7 @@
 
 @layer components {
   .input {
-    @apply border border-stone-300 rounded-lg px-2 py-1 shadow-sm focus:outline-none focus:ring-1 focus:shadow-md text-sm transition-all duration-300 w-60;
+    @apply border border-stone-300 rounded-lg px-2 py-1 shadow-md shadow-purple-300 focus:outline-none focus:ring-1 focus:shadow-md text-sm transition-all duration-300 w-60;
   }
 
   .inputError {
